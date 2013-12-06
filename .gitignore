@@ -16,3 +16,5 @@ local.properties
 .cproject
 .buildpath
 .texlipse
+.project
+.classpath
