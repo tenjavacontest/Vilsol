@@ -76,9 +76,9 @@ public class EntityCalculator extends BukkitRunnable {
 					}
 				}else{
 					if(myBlock.getRelative(BlockFace.DOWN).getType() == Material.SNOW_BLOCK){
-						i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(60).add(Utils.center(i.getLocation()).multiply(0.1)));
+						i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(60).add(Utils.centerExcludeFace(i.getLocation(), b.getFacing()).multiply(0.3)));
 					}else{
-						i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(30).add(Utils.center(i.getLocation()).multiply(0.1)));
+						i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(30).add(Utils.centerExcludeFace(i.getLocation(), b.getFacing()).multiply(0.3)));
 					}
 				}
 			}else if(myBlock.getRelative(BlockFace.DOWN).getType() == Material.CHEST){
@@ -91,7 +91,7 @@ public class EntityCalculator extends BukkitRunnable {
 				Ladder l = (Ladder) myBlock.getState().getData();
 				if(myBlock.getRelative(BlockFace.UP, 2).getType() == Material.LADDER && myBlock.getRelative(BlockFace.UP).getType() == Material.LADDER){
 					Ladder lu = (Ladder) myBlock.getRelative(BlockFace.UP).getState().getData();
-					i.setVelocity(new Vector(0, 0.5, 0).add(Utils.center(i.getLocation()).multiply(0.1)).add(Utils.blockFaceToRelative(lu.getAttachedFace()).multiply(0.1)));
+					i.setVelocity(new Vector(0, 0.5, 0).add(Utils.center(i.getLocation()).multiply(0.3)).add(Utils.blockFaceToRelative(lu.getAttachedFace()).multiply(0.1)));
 				}else{
 					i.teleport(i.getLocation().add(0, 2, 0).add(Utils.blockFaceToRelative(l.getAttachedFace()).multiply(1)));
 					i.setVelocity(new Vector(0, 0, 0));

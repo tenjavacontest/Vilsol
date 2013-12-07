@@ -37,4 +37,19 @@ public class Utils {
 		return out;
 	}
 	
+	public static Vector centerExcludeFace(Location align, BlockFace face){
+		Vector out = new Vector(0, 0, 0);
+		if(face == BlockFace.NORTH || face == BlockFace.SOUTH){
+			if(align.getX() > align.getBlockX() + 0.5) out.setX(-0.1);
+			if(align.getX() < align.getBlockX() + 0.5) out.setX(0.1);
+		}
+		
+		if(face == BlockFace.EAST  || face == BlockFace.WEST){
+			if(align.getZ() > align.getBlockZ() + 0.5) out.setZ(-0.1);
+			if(align.getZ() < align.getBlockZ() + 0.5) out.setZ(0.1);
+		}
+		
+		return out;
+	}
+	
 }
