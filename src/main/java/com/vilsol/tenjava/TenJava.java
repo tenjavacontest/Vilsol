@@ -3,25 +3,27 @@ package com.vilsol.tenjava;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.vilsol.tenjava.listeners.ItemListener;
-import com.vilsol.tenjava.tasks.ItemCalculator;
+import com.vilsol.tenjava.tasks.EntityCalculator;
 
 public class TenJava extends JavaPlugin {
 
 	/*
 	 * This plugin will add multiple additions to items like conveyers, item
 	 * eating chests etc. It will also add some other random stuff with mobs and
-	 * other things.
+	 * other things.<br />
+	 * <br/>
+	 * Sheep were harmed in making of this plugin.
 	 */
 
 	private TenJava plugin;
-	private ItemCalculator calc;
+	private EntityCalculator calc;
 
 	public void onEnable() {
 		plugin = this;
 		getServer().getPluginManager().registerEvents(new ItemListener(this), this);
-		calc = new ItemCalculator(this);
+		calc = new EntityCalculator(this);
 		// Run every 5 ticks
-		calc.runTaskTimer(this, 0L, 5L);
+		calc.runTaskTimer(this, 0L, 2L);
 	}
 
 	public void onDisable() {
@@ -32,7 +34,7 @@ public class TenJava extends JavaPlugin {
 		return plugin;
 	}
 
-	public ItemCalculator getCalc(){
+	public EntityCalculator getCalc(){
 		return calc;
 	}
 	
