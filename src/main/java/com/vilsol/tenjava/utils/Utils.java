@@ -1,9 +1,14 @@
 package com.vilsol.tenjava.utils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.util.Vector;
+
+import com.vilsol.tenjava.TenJava;
 
 public class Utils {
 
@@ -75,6 +80,38 @@ public class Utils {
 		}
 
 		return out;
+	}
+
+	/**
+	 * Powers the block activating any redstone around
+	 * @param location
+	 */
+	@SuppressWarnings("deprecation")
+	public static void powerBlock(Location l) {
+		if(!TenJava.getPlugin().getConfig().getBoolean("Settings.Other.Redstone")) return;
+		final Block b = l.getBlock();
+
+		if(b.getRelative(BlockFace.NORTH).getType() == Material.REDSTONE_WIRE){
+			b.getRelative(BlockFace.NORTH).setData((byte) 15);
+			Bukkit.getScheduler().scheduleSyncDelayedTask(TenJava.getPlugin(), new Runnable(){
+				public void run() { b.getRelative(BlockFace.NORTH).setData((byte) 0); }
+			}, 5L);
+		}else if(b.getRelative(BlockFace.EAST).getType() == Material.REDSTONE_WIRE){
+			b.getRelative(BlockFace.EAST).setData((byte) 15);
+			Bukkit.getScheduler().scheduleSyncDelayedTask(TenJava.getPlugin(), new Runnable(){
+				public void run() { b.getRelative(BlockFace.EAST).setData((byte) 0); }
+			}, 5L);
+		}else if(b.getRelative(BlockFace.SOUTH).getType() == Material.REDSTONE_WIRE){
+			b.getRelative(BlockFace.SOUTH).setData((byte) 15);
+			Bukkit.getScheduler().scheduleSyncDelayedTask(TenJava.getPlugin(), new Runnable(){
+				public void run() { b.getRelative(BlockFace.SOUTH).setData((byte) 0); }
+			}, 5L);
+		}else if(b.getRelative(BlockFace.WEST).getType() == Material.REDSTONE_WIRE){
+			b.getRelative(BlockFace.WEST).setData((byte) 15);
+			Bukkit.getScheduler().scheduleSyncDelayedTask(TenJava.getPlugin(), new Runnable(){
+				public void run() { b.getRelative(BlockFace.WEST).setData((byte) 0); }
+			}, 5L);
+		}
 	}
 
 }

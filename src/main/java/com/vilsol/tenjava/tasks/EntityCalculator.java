@@ -70,12 +70,14 @@ public class EntityCalculator extends BukkitRunnable {
 						i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(30).add(Utils.centerExcludeFace(i.getLocation(), b.getFacing()).multiply(0.5)));
 					}
 				}
+				Utils.powerBlock(i.getLocation());
 			}else if(myBlock.getRelative(BlockFace.DOWN).getType() == Material.CHEST){
 				if(!plugin.getConfig().getBoolean("Settings.Other.ChestEater")) continue;
 				if(i instanceof Item){
 					Chest c = (Chest) myBlock.getRelative(BlockFace.DOWN).getState();
 					c.getInventory().addItem(((Item) i).getItemStack());
 					i.remove();
+					Utils.powerBlock(i.getLocation());
 				}
 			}else if(myBlock.getType() == Material.LADDER){
 				if(!plugin.getConfig().getBoolean("Settings.Movement.Ladder")) continue;
@@ -87,6 +89,7 @@ public class EntityCalculator extends BukkitRunnable {
 					i.teleport(i.getLocation().add(0, 2, 0).add(Utils.faceToForce(l.getAttachedFace()).multiply(100)));
 					i.setVelocity(new Vector(0, 0, 0));
 				}
+				Utils.powerBlock(i.getLocation());
 			}
 		}
 	}

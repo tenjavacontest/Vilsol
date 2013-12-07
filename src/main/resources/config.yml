@@ -3,6 +3,9 @@ Settings:
     # If enabled then any item above a chest will get sucked in
     ChestEater: true
 
+    # If enabled then activates redstone around the block that has an entity traveling through
+    Redstone: true
+
   Movement:
     # If enabled then any entity will be pushed along the repeater path.
     Repeater: true

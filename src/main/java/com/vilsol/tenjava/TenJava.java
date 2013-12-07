@@ -6,7 +6,7 @@ import com.vilsol.tenjava.tasks.EntityCalculator;
 
 public class TenJava extends JavaPlugin {
 
-	private TenJava plugin;
+	private static TenJava plugin;
 	private EntityCalculator calc;
 
 	public void onEnable() {
@@ -25,7 +25,7 @@ public class TenJava extends JavaPlugin {
 	 * Returns the plugin instance
 	 * @return
 	 */
-	public TenJava getPlugin() {
+	public static TenJava getPlugin() {
 		return plugin;
 	}
 
