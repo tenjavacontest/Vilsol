@@ -31,6 +31,10 @@ public class EntityCalculator extends BukkitRunnable {
 		this.plugin = plugin;
 	}
 	
+	/**
+	 * Returns all entities from all worlds
+	 * @return
+	 */
 	public Collection<? extends Entity> getAllEntities(){
 		List<Entity> ent = new ArrayList<Entity>();
 		for(World w : Bukkit.getWorlds()){
@@ -66,23 +70,29 @@ public class EntityCalculator extends BukkitRunnable {
 						}else{
 							i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(400).add(new Vector(0, 1, 0)));
 						}
+						continue;
 					}else if(m == Material.IRON_BLOCK){
 						i.teleport(i.getLocation().add(Utils.faceToForce(b.getFacing()).multiply(500)));
+						continue;
 					}else if(m == Material.REDSTONE_BLOCK){
 						i.teleport(i.getLocation().add(Utils.faceToForce(b.getFacing()).multiply(1000)));
+						continue;
 					}else if(m == Material.GOLD_BLOCK){
 						i.teleport(i.getLocation().add(Utils.faceToForce(b.getFacing()).multiply(1500)));
+						continue;
 					}else if(m == Material.LAPIS_BLOCK){
 						i.teleport(i.getLocation().add(Utils.faceToForce(b.getFacing()).multiply(2000)));
+						continue;
 					}else if(m == Material.DIAMOND_BLOCK){
 						i.teleport(i.getLocation().add(Utils.faceToForce(b.getFacing()).multiply(2500)));
+						continue;
 					}
+				}
+
+				if(myBlock.getRelative(BlockFace.DOWN).getType() == Material.SNOW_BLOCK){
+					i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(60).add(Utils.centerExcludeFace(i.getLocation(), b.getFacing()).multiply(0.5)));
 				}else{
-					if(myBlock.getRelative(BlockFace.DOWN).getType() == Material.SNOW_BLOCK){
-						i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(60).add(Utils.centerExcludeFace(i.getLocation(), b.getFacing()).multiply(0.5)));
-					}else{
-						i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(30).add(Utils.centerExcludeFace(i.getLocation(), b.getFacing()).multiply(0.5)));
-					}
+					i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(30).add(Utils.centerExcludeFace(i.getLocation(), b.getFacing()).multiply(0.5)));
 				}
 				Utils.powerBlock(i.getLocation());
 			}else if(myBlock.getRelative(BlockFace.DOWN).getType() == Material.CHEST){
