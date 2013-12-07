@@ -56,12 +56,26 @@ public class EntityCalculator extends BukkitRunnable {
 				if(!plugin.getConfig().getBoolean("Settings.Movement.Repeater")) continue;
 				Diode b = (Diode) myBlock.getState().getData();
 
-				if(myBlock.getRelative(b.getFacing()).getType() == Material.WOOD_STAIRS){
-					if(!plugin.getConfig().getBoolean("Settings.Movement.StairCannon")) continue;
-					if(i instanceof Item){
-						i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(100).add(new Vector(0, 1, 0)));
-					}else{
-						i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(400).add(new Vector(0, 1, 0)));
+				
+				if(myBlock.getRelative(b.getFacing()).getType() != Material.DIODE_BLOCK_ON){
+					Material m = myBlock.getRelative(b.getFacing()).getType();
+					if(m == Material.WOOD_STAIRS){
+						if(!plugin.getConfig().getBoolean("Settings.Movement.StairCannon")) continue;
+						if(i instanceof Item){
+							i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(100).add(new Vector(0, 1, 0)));
+						}else{
+							i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(400).add(new Vector(0, 1, 0)));
+						}
+					}else if(m == Material.IRON_BLOCK){
+						i.teleport(i.getLocation().add(Utils.faceToForce(b.getFacing()).multiply(500)));
+					}else if(m == Material.REDSTONE_BLOCK){
+						i.teleport(i.getLocation().add(Utils.faceToForce(b.getFacing()).multiply(1000)));
+					}else if(m == Material.GOLD_BLOCK){
+						i.teleport(i.getLocation().add(Utils.faceToForce(b.getFacing()).multiply(1500)));
+					}else if(m == Material.LAPIS_BLOCK){
+						i.teleport(i.getLocation().add(Utils.faceToForce(b.getFacing()).multiply(2000)));
+					}else if(m == Material.DIAMOND_BLOCK){
+						i.teleport(i.getLocation().add(Utils.faceToForce(b.getFacing()).multiply(2500)));
 					}
 				}else{
 					if(myBlock.getRelative(BlockFace.DOWN).getType() == Material.SNOW_BLOCK){

@@ -15,3 +15,6 @@ Settings:
 
     # If enabled then any item on top of a repeater with stairs in front of it will be shot like a cannon ball
     StairCannon: true
+
+    # If enabled then pistons will fling any entities it pushes.
+    Piston: true

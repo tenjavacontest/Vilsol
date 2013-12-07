@@ -2,6 +2,7 @@ package com.vilsol.tenjava;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.vilsol.tenjava.listeners.PistonListener;
 import com.vilsol.tenjava.tasks.EntityCalculator;
 
 public class TenJava extends JavaPlugin {
@@ -15,6 +16,7 @@ public class TenJava extends JavaPlugin {
 		calc = new EntityCalculator(this);
 		// Run every 2 ticks
 		calc.runTaskTimer(this, 0L, 2L);
+		getServer().getPluginManager().registerEvents(new PistonListener(this), this);
 	}
 
 	public void onDisable() {

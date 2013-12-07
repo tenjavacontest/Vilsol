@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 
 import com.vilsol.tenjava.TenJava;
@@ -33,6 +34,10 @@ public class Utils {
 			out.setX(0.01);
 		if (face == BlockFace.WEST)
 			out.setX(-0.01);
+		if (face == BlockFace.UP)
+			out.setY(0.01);
+		if (face == BlockFace.DOWN)
+			out.setY(-0.01);
 		return out;
 	}
 
@@ -84,33 +89,67 @@ public class Utils {
 
 	/**
 	 * Powers the block activating any redstone around
+	 * 
 	 * @param location
 	 */
 	@SuppressWarnings("deprecation")
 	public static void powerBlock(Location l) {
-		if(!TenJava.getPlugin().getConfig().getBoolean("Settings.Other.Redstone")) return;
+		if (!TenJava.getPlugin().getConfig()
+				.getBoolean("Settings.Other.Redstone"))
+			return;
 		final Block b = l.getBlock();
 
-		if(b.getRelative(BlockFace.NORTH).getType() == Material.REDSTONE_WIRE){
+		if (b.getRelative(BlockFace.NORTH).getType() == Material.REDSTONE_WIRE) {
 			b.getRelative(BlockFace.NORTH).setData((byte) 15);
-			Bukkit.getScheduler().scheduleSyncDelayedTask(TenJava.getPlugin(), new Runnable(){
-				public void run() { b.getRelative(BlockFace.NORTH).setData((byte) 0); }
-			}, 5L);
-		}else if(b.getRelative(BlockFace.EAST).getType() == Material.REDSTONE_WIRE){
+			Bukkit.getScheduler().scheduleSyncDelayedTask(TenJava.getPlugin(),
+					new Runnable() {
+						public void run() {
+							b.getRelative(BlockFace.NORTH).setData((byte) 0);
+						}
+					}, 5L);
+		} else if (b.getRelative(BlockFace.EAST).getType() == Material.REDSTONE_WIRE) {
 			b.getRelative(BlockFace.EAST).setData((byte) 15);
-			Bukkit.getScheduler().scheduleSyncDelayedTask(TenJava.getPlugin(), new Runnable(){
-				public void run() { b.getRelative(BlockFace.EAST).setData((byte) 0); }
-			}, 5L);
-		}else if(b.getRelative(BlockFace.SOUTH).getType() == Material.REDSTONE_WIRE){
+			Bukkit.getScheduler().scheduleSyncDelayedTask(TenJava.getPlugin(),
+					new Runnable() {
+						public void run() {
+							b.getRelative(BlockFace.EAST).setData((byte) 0);
+						}
+					}, 5L);
+		} else if (b.getRelative(BlockFace.SOUTH).getType() == Material.REDSTONE_WIRE) {
 			b.getRelative(BlockFace.SOUTH).setData((byte) 15);
-			Bukkit.getScheduler().scheduleSyncDelayedTask(TenJava.getPlugin(), new Runnable(){
-				public void run() { b.getRelative(BlockFace.SOUTH).setData((byte) 0); }
-			}, 5L);
-		}else if(b.getRelative(BlockFace.WEST).getType() == Material.REDSTONE_WIRE){
+			Bukkit.getScheduler().scheduleSyncDelayedTask(TenJava.getPlugin(),
+					new Runnable() {
+						public void run() {
+							b.getRelative(BlockFace.SOUTH).setData((byte) 0);
+						}
+					}, 5L);
+		} else if (b.getRelative(BlockFace.WEST).getType() == Material.REDSTONE_WIRE) {
 			b.getRelative(BlockFace.WEST).setData((byte) 15);
-			Bukkit.getScheduler().scheduleSyncDelayedTask(TenJava.getPlugin(), new Runnable(){
-				public void run() { b.getRelative(BlockFace.WEST).setData((byte) 0); }
-			}, 5L);
+			Bukkit.getScheduler().scheduleSyncDelayedTask(TenJava.getPlugin(),
+					new Runnable() {
+						public void run() {
+							b.getRelative(BlockFace.WEST).setData((byte) 0);
+						}
+					}, 5L);
+		}
+	}
+
+	/**
+	 * 
+	 * All entities that are in this location will get blasted away in the
+	 * blockface direction
+	 * 
+	 * @param location
+	 * @param face
+	 */
+	public static void pushEntities(Location l, BlockFace face) {
+		for (Entity e : l.getWorld().getEntities()) {
+			if (e.getLocation().getBlockX() == l.getBlockX()
+					&& e.getLocation().getBlockY() == l.getBlockY()
+					&& e.getLocation().getBlockZ() == l.getBlockZ()) {
+				e.setVelocity(e.getVelocity().add(
+						Utils.faceToForce(face).multiply(50)));
+			}
 		}
 	}
 
