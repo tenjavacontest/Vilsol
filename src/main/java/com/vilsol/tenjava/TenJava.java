@@ -12,6 +12,7 @@ public class TenJava extends JavaPlugin {
 
 	public void onEnable() {
 		plugin = this;
+		saveDefaultConfig();
 		getServer().getPluginManager().registerEvents(new ItemListener(this), this);
 		calc = new EntityCalculator(this);
 		// Run every 5 ticks

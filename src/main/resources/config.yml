@@ -1,0 +1,14 @@
+Settings:
+  Other:
+    # If enabled then any item above a chest will get sucked in
+    ChestEater: true
+
+  Movement:
+    # If enabled then any entity will be pushed along the repeater path.
+    Repeater: true
+
+    # If enabled then any entity will be pushed up the ladders.
+    Ladder: true
+
+    # If enabled then any item on top of a repeater with stairs in front of it will be shot like a cannon ball
+    StairCannon: true
