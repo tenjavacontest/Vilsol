@@ -31,18 +31,6 @@ public class EntityCalculator extends BukkitRunnable {
 		this.plugin = plugin;
 	}
 	
-	public void addEntityToFollow(Entity entity){
-		if(!following.contains(entity)){
-			following.add(entity);
-		}
-	}
-	
-	public void removeEntity(Entity entity){
-		if(following.contains(entity)){
-			following.remove(entity);
-		}
-	}
-	
 	public Collection<? extends Entity> getAllEntities(){
 		List<Entity> ent = new ArrayList<Entity>();
 		for(World w : Bukkit.getWorlds()){
@@ -94,9 +82,9 @@ public class EntityCalculator extends BukkitRunnable {
 				Ladder l = (Ladder) myBlock.getState().getData();
 				if(myBlock.getRelative(BlockFace.UP, 2).getType() == Material.LADDER && myBlock.getRelative(BlockFace.UP).getType() == Material.LADDER){
 					Ladder lu = (Ladder) myBlock.getRelative(BlockFace.UP).getState().getData();
-					i.setVelocity(new Vector(0, 0.5, 0).add(Utils.center(i.getLocation()).multiply(0.3)).add(Utils.blockFaceToRelative(lu.getAttachedFace()).multiply(0.5)));
+					i.setVelocity(new Vector(0, 0.5, 0).add(Utils.center(i.getLocation()).multiply(0.3)).add(Utils.faceToForce(lu.getAttachedFace()).multiply(50)));
 				}else{
-					i.teleport(i.getLocation().add(0, 2, 0).add(Utils.blockFaceToRelative(l.getAttachedFace()).multiply(1)));
+					i.teleport(i.getLocation().add(0, 2, 0).add(Utils.faceToForce(l.getAttachedFace()).multiply(100)));
 					i.setVelocity(new Vector(0, 0, 0));
 				}
 			}

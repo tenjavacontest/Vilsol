@@ -2,7 +2,6 @@ package com.vilsol.tenjava;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.vilsol.tenjava.listeners.ItemListener;
 import com.vilsol.tenjava.tasks.EntityCalculator;
 
 public class TenJava extends JavaPlugin {
@@ -13,9 +12,8 @@ public class TenJava extends JavaPlugin {
 	public void onEnable() {
 		plugin = this;
 		saveDefaultConfig();
-		getServer().getPluginManager().registerEvents(new ItemListener(this), this);
 		calc = new EntityCalculator(this);
-		// Run every 5 ticks
+		// Run every 2 ticks
 		calc.runTaskTimer(this, 0L, 2L);
 	}
 
@@ -23,10 +21,18 @@ public class TenJava extends JavaPlugin {
 
 	}
 
+	/**
+	 * Returns the plugin instance
+	 * @return
+	 */
 	public TenJava getPlugin() {
 		return plugin;
 	}
 
+	/**
+	 * Returns the entity calculator
+	 * @return
+	 */
 	public EntityCalculator getCalc(){
 		return calc;
 	}
