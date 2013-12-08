@@ -90,7 +90,7 @@ public class EntityCalculator extends BukkitRunnable {
 				}
 
 				if(myBlock.getRelative(BlockFace.DOWN).getType() == Material.SNOW_BLOCK){
-					i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(60).add(Utils.centerExcludeFace(i.getLocation(), b.getFacing()).multiply(0.5)));
+					i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(100).add(Utils.centerExcludeFace(i.getLocation(), b.getFacing()).multiply(0.5)));
 				}else{
 					i.setVelocity(Utils.faceToForce(b.getFacing()).multiply(30).add(Utils.centerExcludeFace(i.getLocation(), b.getFacing()).multiply(0.5)));
 				}

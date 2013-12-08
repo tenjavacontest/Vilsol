@@ -7,6 +7,8 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import com.vilsol.tenjava.TenJava;
@@ -151,6 +153,22 @@ public class Utils {
 						Utils.faceToForce(face).multiply(50)));
 			}
 		}
+	}
+
+	public static void cleanupEntities() {
+		new BukkitRunnable(){
+			public void run() {
+				int i = 0;
+				if(TenJava.getPlugin().getCalc().getAllEntities().size() == 0) this.cancel();
+				for(Entity e : TenJava.getPlugin().getCalc().getAllEntities()){
+					if(e instanceof Player) continue;
+					if(i == 10) return;
+					e.remove();
+					i++;
+				}
+				this.cancel();
+			}
+		}.runTaskTimer(TenJava.getPlugin(), 0L, 1L);
 	}
 
 }
